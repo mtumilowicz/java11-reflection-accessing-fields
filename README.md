@@ -45,6 +45,23 @@ To read/set the value of a field, we have to:
               by this method fails.
 1. To set the value, we have to call a proper method from `Field` class:
     * if the field is primitive
+        ```
+        public void setXXX(Object obj, XXX z)
+        ```
+        * `XXX` is the primitive type
+        * `obj` the object whose field should be modified
+        * `z` the new value for the field
+        * exceptions:
+            * `IllegalAccessException` - the underlying 
+            field is either inaccessible or final (enforcing Java language access control).
+            * `IllegalArgumentException` - if the specified object is not an
+                  instance of the class or interface declaring the underlying
+                  field (or a subclass or implementor thereof),
+                  or if an unwrapping conversion fails.
+            * `NullPointerException` - if the specified object is `null`
+                  and the field is an instance field.
+            * `ExceptionInInitializerError` if the initialization provoked
+                  by this method fails.
     
     * if the field is not primitive
         ```
@@ -54,8 +71,8 @@ To read/set the value of a field, we have to:
         * `value` the new value for the field
         * exceptions:
             * `IllegalAccessException` - 
-                if the underlying field is either inaccessible (enforcing Java language access control) 
-                or final
+                if the underlying field is either inaccessible
+                or final (enforcing Java language access control).
             * `IllegalArgumentException` - if the specified object is not an
               instance of the class or interface declaring the underlying
               field (or a subclass or implementor thereof),
