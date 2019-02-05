@@ -4,5 +4,5 @@
 class X {
     private String privateField = "a";
     int count;
-    String name = "string";
+    final String name = "string";
 }
