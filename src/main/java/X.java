@@ -3,6 +3,6 @@
  */
 class X {
     private String privateField = "a";
-    int count = 0;
-    public String name = "public";
+    int count;
+    String name = "string";
 }
