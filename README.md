@@ -67,12 +67,17 @@ and accessing:
 * primitive
     * get
         ```
-        var concatenated = X.class.getDeclaredField("count").getInt(new X());
+        var count = X.class.getDeclaredField("count").getInt(new X());
         
         assertThat(concatenated, is(0));
         ```
     * set
         ```
+        var x = new X();
+        X.class.getDeclaredField("count")
+                .setInt(x, 1);
+        
+        assertThat(x.count, is(1));
         ```
 * object
     * get
@@ -84,7 +89,11 @@ and accessing:
         ```
     * set
         ```
-        
+        var x = new X();
+        X.class.getDeclaredField("notFinal")
+                .set(x, "set");
+
+        assertThat(x.notFinal, is("set"));
         ```
 **pay attention to types:**
 * get
@@ -95,6 +104,13 @@ and accessing:
     }
     ```
 * set
+    ```
+    @Test(expected = IllegalArgumentException.class)
+    public void set_wrongType() throws NoSuchFieldException, IllegalAccessException {
+        X.class.getDeclaredField("notFinal")
+                .setInt(new X(), 1);
+    }
+    ```
 **pay attention to accessibility:**
 * get
     ```
@@ -104,3 +120,13 @@ and accessing:
     }
     ```
 * set
+    ```
+    @Test(expected = IllegalAccessException.class)
+    public void set_finalString() throws NoSuchFieldException, IllegalAccessException {
+        var x = new X();
+        X.class.getDeclaredField("name")
+                .set(x, "set");
+
+        assertThat(x.name, is("set"));
+    }
+    ```
