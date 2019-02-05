@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/java11-reflection-accessing-fields.svg?branch=master)](https://travis-ci.com/mtumilowicz/java11-reflection-accessing-fields)
+
 # java11-reflection-accessing-fields
 
 # preface
