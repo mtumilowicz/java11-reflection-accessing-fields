@@ -48,3 +48,39 @@ To read/set the value of a field, we have to:
       we can bypass it using**: https://github.com/mtumilowicz/java11-deep-reflection
       
 # project description
+We will show how to access field using reflection.
+```
+class X {
+    private String privateField = "a";
+    int count;
+    String name = "string";
+}
+```
+and invocation:
+* primitive
+    ```
+    var concatenated = X.class.getDeclaredField("count").getInt(new X());
+    
+    assertThat(concatenated, is(0));
+    ```
+* object
+    ```
+    var concatenated = (String) X.class.getDeclaredField("name")
+            .get(new X());
+    
+    assertThat(concatenated, is("string"));
+    ```
+**pay attention to types:**
+```
+@Test(expected = IllegalArgumentException.class)
+public void accessing_badType() throws NoSuchFieldException, IllegalAccessException {
+    X.class.getDeclaredField("name").getInt(new X());
+}
+```
+**pay attention to accessibility:**
+```
+@Test(expected = IllegalAccessException.class)
+public void accessing_private() throws NoSuchFieldException, IllegalAccessException {
+    X.class.getDeclaredField("privateField").get(new X());
+}
+```
