@@ -43,11 +43,16 @@ To read/set the value of a field, we have to:
               and the field is an instance field.
             * `ExceptionInInitializerError` if the initialization provoked
               by this method fails.
-    * static and instance fields are accessed the same way (in case
-        of static fields the `obj`)
-    * **we can access only that fields which we can access 
-      with regular java code (otherwise `IllegalAccessException`), 
-      we can bypass it using**: https://github.com/mtumilowicz/java11-deep-reflection
+1. To set the value, we have to call a proper method from `Field` class:
+    * if the field is primitive
+    
+    * if the field is not primitive
+    
+* static and instance fields are accessed the same way (in case
+    of static fields the `obj`)
+* **we can access only that fields which we can access 
+  with regular java code (otherwise `IllegalAccessException`), 
+  we can bypass it using**: https://github.com/mtumilowicz/java11-deep-reflection
       
 # project description
 We will show how to access field using reflection.
@@ -58,31 +63,44 @@ class X {
     String name = "string";
 }
 ```
-and invocation:
+and accessing:
 * primitive
-    ```
-    var concatenated = X.class.getDeclaredField("count").getInt(new X());
-    
-    assertThat(concatenated, is(0));
-    ```
+    * get
+        ```
+        var concatenated = X.class.getDeclaredField("count").getInt(new X());
+        
+        assertThat(concatenated, is(0));
+        ```
+    * set
+        ```
+        ```
 * object
-    ```
-    var concatenated = (String) X.class.getDeclaredField("name")
-            .get(new X());
-    
-    assertThat(concatenated, is("string"));
-    ```
+    * get
+        ```
+        var concatenated = (String) X.class.getDeclaredField("name")
+                .get(new X());
+        
+        assertThat(concatenated, is("string"));
+        ```
+    * set
+        ```
+        
+        ```
 **pay attention to types:**
-```
-@Test(expected = IllegalArgumentException.class)
-public void accessing_badType() throws NoSuchFieldException, IllegalAccessException {
-    X.class.getDeclaredField("name").getInt(new X());
-}
-```
+* get
+    ```
+    @Test(expected = IllegalArgumentException.class)
+    public void accessing_badType() throws NoSuchFieldException, IllegalAccessException {
+        X.class.getDeclaredField("name").getInt(new X());
+    }
+    ```
+* set
 **pay attention to accessibility:**
-```
-@Test(expected = IllegalAccessException.class)
-public void accessing_private() throws NoSuchFieldException, IllegalAccessException {
-    X.class.getDeclaredField("privateField").get(new X());
-}
-```
+* get
+    ```
+    @Test(expected = IllegalAccessException.class)
+    public void accessing_private() throws NoSuchFieldException, IllegalAccessException {
+        X.class.getDeclaredField("privateField").get(new X());
+    }
+    ```
+* set
