@@ -47,9 +47,26 @@ To read/set the value of a field, we have to:
     * if the field is primitive
     
     * if the field is not primitive
-    
+        ```
+        public void set(Object obj, Object value)
+        ```
+        * `obj` the object whose field should be modified
+        * `value` the new value for the field
+        * exceptions:
+            * `IllegalAccessException` - 
+                if the underlying field is either inaccessible (enforcing Java language access control) 
+                or final
+            * `IllegalArgumentException` - if the specified object is not an
+              instance of the class or interface declaring the underlying
+              field (or a subclass or implementor thereof),
+              or if an unwrapping conversion fails.
+            * `NullPointerException` - if the specified object is `null`
+              and the field is an instance field.
+            * `ExceptionInInitializerError` - if the initialization provoked
+              by this method fails.
+            
 * static and instance fields are accessed the same way (in case
-    of static fields the `obj`)
+    of static fields the `obj` is ignored)
 * **we can access only that fields which we can access 
   with regular java code (otherwise `IllegalAccessException`), 
   we can bypass it using**: https://github.com/mtumilowicz/java11-deep-reflection
