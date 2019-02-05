@@ -89,7 +89,7 @@ To read/set the value of a field, we have to:
   we can bypass it using**: https://github.com/mtumilowicz/java11-deep-reflection
       
 # project description
-We will show how to access field using reflection.
+We will show how to access fields using reflection.
 ```
 class X {
     private String privateField = "a";
