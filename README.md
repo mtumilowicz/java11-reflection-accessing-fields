@@ -60,7 +60,7 @@ We will show how to access field using reflection.
 class X {
     private String privateField = "a";
     int count;
-    String name = "string";
+    final String name = "string";
 }
 ```
 and accessing:
